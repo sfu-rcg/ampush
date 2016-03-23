@@ -39,9 +39,9 @@ ampush lets you manage automount maps in Active Directory without the hassle of 
 
 
 ### Requirements: ampush 
- - A box with Python 2.6 or 2.7. Won't work with Python 3 (see below).
+ - A box with Python 2.6 or 2.7.
  - [python-ad](https://github.com/sfu-rcg/python-ad)
- - [python-ldap](https://pypi.python.org/pypi/python-ldap)
+ - [python-ldap](https://pypi.python.org/pypi/python-ldap) (currently not compatible with Python 3.x)
 
 Not tested on Windows.
 
