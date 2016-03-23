@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+
+'''
+dump_ffmaps: display the contents of all flat file automount maps 
+             in Python dict format.
+Part of ampush. https://github.com/sfu-rcg/ampush
+
+Blame warren@sfu.ca.
+Copyright (C) 2016 Research Computing Group, Simon Fraser University.
+'''
+import sys
+from amlib import conf, log, ad_op, utils, sync
+from amlib import file_map as fm
+from pprint import pprint
+
+
+def main():
+    ff_maps = fm.get_names()
+    print("Found flat file maps ")
+    print(ff_maps)
+
+    for x in ff_maps:
+        print("\n### FILE:"+x)
+        d_map = fm.parse(x)
+        pprint(d_map)
+    return
+
+if __name__ == "__main__":
+    main()

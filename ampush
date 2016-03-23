@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+'''
+ampush: Hassle-free automount map management for Active Directory
+  https://github.com/sfu-rcg/ampush
+
+Blame warren@sfu.ca.
+Copyright (C) 2016 Research Computing Group, Simon Fraser University.
+
+ v0.2, 23-Mar-2016: Complete rewrite. First public release.
+ v0.1, 24-Sep-2013: (internal) First working release.
+'''
+
+import sys
+from amlib import conf, log, argp, ad_op, utils, sync
+from amlib import file_map as fm
+from amlib import ad_map as adm
+from pprint import pprint
+
+def main():
+    log.m.info('START')
+
+    sync.do(maps=argp.a['sync'],
+            dry_run=argp.a['dry_run'])
+
+    log.m.info('FINISH')
+    return
+
+if __name__ == "__main__":
+    main()

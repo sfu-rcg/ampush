@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+'''
+verify_admaps: validate all flat file automount maps.
+Part of ampush. https://github.com/sfu-rcg/ampush
+
+Blame warren@sfu.ca.
+Copyright (C) 2016 Research Computing Group, Simon Fraser University.
+'''
+import sys
+from amlib import conf, log, ad_op, utils, sync
+from amlib import file_map as fm
+from pprint import pprint
+
+import logging
+from logging import handlers
+from datetime import datetime
+
+# m = main log
+m = logging.getLogger('main')
+m_handler = logging.StreamHandler(sys.stdout)
+fmt = logging.Formatter(fmt='%(asctime)s %(message)s',
+                        datefmt='%b %e %Y %H:%M:%S')
+m_handler.setFormatter(fmt)
+m.addHandler(m_handler)
+m.setLevel(30)
+
+
+def main():
+    ff_maps = fm.get_names()
+    for x in ff_maps:
+        d_map = fm.parse(x)
+    return
+
+if __name__ == "__main__":
+    main()
