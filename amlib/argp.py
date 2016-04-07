@@ -3,12 +3,12 @@ import sys
 
 p = argparse.ArgumentParser(
     prog='ampush',
-    description="Active Directory Automount Pusher, v0.00",
+    description="Active Directory Automount Pusher, v0.21",
 )
 
 p.add_argument('-V', '--version',
                action='version',
-               version='ampush 0.00, 09-Mar-2016')
+               version='ampush 0.21, 07-Apr-2016')
 
 p.add_argument('-d', '--debug', dest='debug',
                action='store_true',
