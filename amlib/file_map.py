@@ -109,7 +109,7 @@ As with submaps the mount options field is optional.
 
         else:
             log_msg = (
-                'Terminating. Bad Active Directory master map format: '
+                'Terminating. Bad flat file master map format: '
                 'unexpected number of fields in ' + joined
             )
             log.m.critical(log_msg)

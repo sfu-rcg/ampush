@@ -22,7 +22,7 @@ def get(cn=None, scope=ldap.SCOPE_SUBTREE):
 def verify_am_container_exists():
     if get(conf.c['am_container']) is None:
         log_msg = 'Terminating. Automount container {0} does not exist in AD'
-        log_msg = log_msg.foramt(conf.c['am_container'])
+        log_msg = log_msg.format(conf.c['am_container'])
         log.m.critical(log_msg)
         print(log_msg)
         exit(11)
