@@ -6,6 +6,14 @@ import re
 import conf, cnx, log
 
 
+def wait_for_replication(seconds=20):
+    # cheap way to avoid duplicates ("CNF:*" objects)
+    log.m.debug('Waiting {0} seconds for replication to complete'.format(seconds))
+    from time import sleep
+    sleep(seconds)
+    return
+
+
 def check_hostname_resolves(hostname=None, map_name=None):
     try:
         socket.gethostbyname(hostname)

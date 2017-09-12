@@ -37,6 +37,7 @@ def add_obj(dn=None, debug_attrs=None, attrs=None, dry_run=True):
     if dry_run is False:
         try:
             cnx.c.add(dn=dn, attrs=attrs)
+            utils.wait_for_replication()
         except ldap.ALREADY_EXISTS:
             log_msg = 'WARNING: Domain controller says {0} already exists'
             log_msg = log_msg.format(dn)
@@ -51,6 +52,7 @@ def _del(cn=None, dry_run=True):
 
     if dry_run is False:
         cnx.c.delete(dn=cn)
+        utils.wait_for_replication()
     return
 
 
