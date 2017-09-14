@@ -4,7 +4,7 @@ ampush lets you manage automount maps in Active Directory without the hassle of 
 
 ## Version
 
-0.21, 07-Apr-2016. Copyright (C) 2016 Research Computing Group, Simon Fraser University.
+0.3, 14-Sep-2017. Copyright (C) 2016-2017 Research Computing Group, Simon Fraser University.
 
 
 ## Why Active Directory and ampush?
