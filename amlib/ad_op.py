@@ -141,10 +141,16 @@ CN=software_installers\\0ACNF:5bb2ae10-d878-4fa6-8b4a-8c9d38888002,CN=auto.net,C
 
     No dry_run parameter since (1) we have flat file backups if things
     go horrendously wrong, and (2) nobody wants CNF objects sitting around.
+
+    Return True if conflict objects were found so that we can re-run
+    the sync elsewhere.
     '''
 
     from amlib import ad_map
     import re
+
+    conflicts_found = False
+
     log.m.debug('{0}: checking for conflict objects'.format(map_name))
     if map_name == 'auto.master':
         entries = ad_map.parse_master().keys()
@@ -153,6 +159,7 @@ CN=software_installers\\0ACNF:5bb2ae10-d878-4fa6-8b4a-8c9d38888002,CN=auto.net,C
 
     for entry in entries:
         if b'\x0ACNF:' in entry:
+            conflicts_found = True
             hexified_entry = re.sub('\\n', '\\\\0a', entry)
             printable_entry = entry.encode('string_escape')  # escape newline
             bad_cn = 'cn={0},cn={1},{2}'.format(hexified_entry,
@@ -161,4 +168,4 @@ CN=software_installers\\0ACNF:5bb2ae10-d878-4fa6-8b4a-8c9d38888002,CN=auto.net,C
             log_msg = 'conflict: obj in {0}'.format(map_name)
             log.m.info(log_msg)
             _del(cn=bad_cn, dry_run=False)
-    return
+    return conflicts_found

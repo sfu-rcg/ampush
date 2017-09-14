@@ -4,7 +4,7 @@ ampush lets you manage automount maps in Active Directory without the hassle of 
 
 ## Version
 
-0.3, 14-Sep-2017. Copyright (C) 2016-2017 Research Computing Group, Simon Fraser University.
+0.31, 14-Sep-2017. Copyright (C) 2016-2017 Research Computing Group, Simon Fraser University.
 
 
 ## Why Active Directory and ampush?
@@ -58,6 +58,7 @@ ampush is built for environments where FreeIPA is not present. Assuming you coul
 
 ## Version History
 
+ - v0.31, 14-Sep-2017: Perform additional sync if conflict resolution has occurred.
  - v0.3, 14-Sep-2017: Seek and destroy conflict (cn=\*\\0aCNF:\*) objects.
  - v0.21, 07-Apr-2016: Fix function call. Clarify error message and requirements in README. Thanks, Ben!
  - v0.2, 23-Mar-2016: Complete rewrite. First public release.

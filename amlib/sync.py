@@ -35,12 +35,16 @@ def do(maps=None, dry_run=True):
         all_parent_maps(dry_run=dry_run)
         all_map_contents(dry_run=dry_run)
     else:  # >=1 maps passed to --sync
-        log_msg = 'Syncing maps passed on the command line: {0}'
-        log_msg.format(' '.join(maps))
+        log_msg = 'Syncing maps passed as args: ' + ' '.join(maps)
         log.m.debug(log_msg)
         for map_name in maps:
             parent_map(map_name=map_name, dry_run=dry_run)
-            map_contents(map_name=map_name, dry_run=dry_run)
+            conflicts_found = None
+            conflicts_found = map_contents(map_name=map_name,
+                                           dry_run=dry_run)
+            if conflicts_found is True:
+                log.m.info('Resyncing ' + map_name)
+                map_contents(map_name=map_name, dry_run=dry_run)
     return
 
 
@@ -60,7 +64,11 @@ in AD that have no flat file equivalent.
 
 def all_map_contents(dry_run=True):
     for ff_map_name in fm.get_names():
-        map_contents(map_name=ff_map_name, dry_run=dry_run)
+        conflicts_found = None
+        conflicts_found = map_contents(map_name=ff_map_name, dry_run=dry_run)
+        if conflicts_found is True:
+            log.m.info('Resyncing ' + ff_map_name)
+            map_contents(map_name=ff_map_name, dry_run=dry_run)
     return
 
 
@@ -116,7 +124,11 @@ Pass 3: Keys that exist in both places but whose values differ:
         delete from AD, create in AD with updated info.
     '''
     # log.m.debug('sync.map_contents:'+map_name)
-    ad_op.conflict_catcher(map_name=map_name)
+
+    conflicts_found = None
+    if ad_op.conflict_catcher(map_name=map_name) is True:
+        conflicts_found = True
+
     ff_map = fm.parse(map_name)
     ad_map = adm.parse(map_name)
 
@@ -179,5 +191,7 @@ Pass 3: Keys that exist in both places but whose values differ:
                                        entry_k=k,
                                        entry_v=ff_map[k],
                                        dry_run=dry_run)
-    ad_op.conflict_catcher(map_name=map_name)
-    return
+    # one more time...
+    if ad_op.conflict_catcher(map_name=map_name) is True:
+        conflicts_found = True
+    return conflicts_found  # True == we should re-run the sync
