@@ -58,7 +58,7 @@ ampush is built for environments where FreeIPA is not present. Assuming you coul
 
 ## Version History
 
- - v0.3, 14-Sep-2017: Seek and destroy conflict (cn=*\0aCNF:*) objects.
+ - v0.3, 14-Sep-2017: Seek and destroy conflict (cn=\*\0aCNF:\*) objects.
  - v0.21, 07-Apr-2016: Fix function call. Clarify error message and requirements in README. Thanks, Ben!
  - v0.2, 23-Mar-2016: Complete rewrite. First public release.
  - v0.1, 24-Sep-2013: (internal) First working release.
