@@ -5,7 +5,7 @@ from amlib import conf, utils, log, cnx
 '''
 Functions for parsing AD automount maps into a common dict format.
 Part of ampush. https://github.com/sfu-rcg/ampush
-Copyright (C) 2016 Research Computing Group, Simon Fraser University.
+Copyright (C) 2016-2017 Research Computing Group, Simon Fraser University.
 '''
 
 

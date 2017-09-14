@@ -5,7 +5,7 @@ import ldap.modlist as modlist
 '''
 Functions for manipulating AD objects with python-ad.
 Part of ampush. https://github.com/sfu-rcg/ampush
-Copyright (C) 2016 Research Computing Group, Simon Fraser University.
+Copyright (C) 2016-2017 Research Computing Group, Simon Fraser University.
 '''
 
 
@@ -130,4 +130,35 @@ server:path pair.
             debug_attrs=attrs,
             attrs=ml,
             dry_run=dry_run)
+    return
+
+
+def conflict_catcher(map_name=None, delete_bad_objs=True):
+    ''' Scan a given automount container for duplicate/conflict objects,
+    identifiable by the presence of "{linefeed}CNF:" in the CN, e.g.:
+
+CN=software_installers\\0ACNF:5bb2ae10-d878-4fa6-8b4a-8c9d38888002,CN=auto.net,CN=automounts,OU=Linux,DC=ad,DC=example,DC=com
+
+    No dry_run parameter since (1) we have flat file backups if things
+    go horrendously wrong, and (2) nobody wants CNF objects sitting around.
+    '''
+
+    from amlib import ad_map
+    import re
+    log.m.debug('{0}: checking for conflict objects'.format(map_name))
+    if map_name == 'auto.master':
+        entries = ad_map.parse_master().keys()
+    else:
+        entries = ad_map.parse_submap(map_name=map_name).keys()
+
+    for entry in entries:
+        if b'\x0ACNF:' in entry:
+            hexified_entry = re.sub('\\n', '\\\\0a', entry)
+            printable_entry = entry.encode('string_escape')  # escape newline
+            bad_cn = 'cn={0},cn={1},{2}'.format(hexified_entry,
+                                                map_name,
+                                                conf.c['am_container'])
+            log_msg = 'conflict: obj in {0}'.format(map_name)
+            log.m.info(log_msg)
+            _del(cn=bad_cn, dry_run=False)
     return

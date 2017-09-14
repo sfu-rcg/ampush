@@ -11,7 +11,7 @@ flat file automount maps (authoritative) and automount
 maps in Active Directory.
 
 Part of ampush. https://github.com/sfu-rcg/ampush
-Copyright (C) 2016 Research Computing Group, Simon Fraser University.
+Copyright (C) 2016-2017 Research Computing Group, Simon Fraser University.
 '''
 
 
@@ -116,6 +116,7 @@ Pass 3: Keys that exist in both places but whose values differ:
         delete from AD, create in AD with updated info.
     '''
     # log.m.debug('sync.map_contents:'+map_name)
+    ad_op.conflict_catcher(map_name=map_name)
     ff_map = fm.parse(map_name)
     ad_map = adm.parse(map_name)
 
@@ -178,4 +179,5 @@ Pass 3: Keys that exist in both places but whose values differ:
                                        entry_k=k,
                                        entry_v=ff_map[k],
                                        dry_run=dry_run)
+    ad_op.conflict_catcher(map_name=map_name)
     return

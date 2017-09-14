@@ -3,6 +3,12 @@ from logging import handlers
 import sys, utils, conf
 from datetime import datetime
 
+'''
+Part of ampush. https://github.com/sfu-rcg/ampush
+Copyright (C) 2016-2017 Research Computing Group, Simon Fraser University.
+'''
+
+
 # m = main log
 m = logging.getLogger('main')
 m_handler = logging.FileHandler(filename=conf.c['main_logfile'])

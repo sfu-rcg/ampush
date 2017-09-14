@@ -5,8 +5,12 @@ import re
 
 import conf, cnx, log
 
+'''
+Part of ampush. https://github.com/sfu-rcg/ampush
+Copyright (C) 2016-2017 Research Computing Group, Simon Fraser University.
+'''
 
-def wait_for_replication(seconds=20):
+def wait_for_replication(seconds=7):
     # cheap way to avoid duplicates ("CNF:*" objects)
     log.m.debug('Waiting {0} seconds for replication to complete'.format(seconds))
     from time import sleep

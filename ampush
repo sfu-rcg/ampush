@@ -5,10 +5,13 @@ ampush: Hassle-free automount map management for Active Directory
   https://github.com/sfu-rcg/ampush
 
 Blame warren@sfu.ca.
-Copyright (C) 2016 Research Computing Group, Simon Fraser University.
+Copyright (C) 2016-2017 Research Computing Group, Simon Fraser University.
 
- v0.2, 23-Mar-2016: Complete rewrite. First public release.
- v0.1, 24-Sep-2013: (internal) First working release.
+ v0.3   14-Sep-2017: Seek and destroy conflict (cn=*\0aCNF:*) objects.
+ v0.21  07-Apr-2016: Fix function call. Clarify error message and
+                     requirements in README. Thanks, Ben!
+ v0.2   23-Mar-2016: Complete rewrite. First public release.
+ v0.1   24-Sep-2013: (internal) First working release.
 '''
 
 import sys
