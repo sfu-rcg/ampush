@@ -4,12 +4,12 @@ ampush lets you manage automount maps in Active Directory without the hassle of 
 
 ## Version
 
-0.31, 14-Sep-2017. Copyright (C) 2016-2017 Research Computing Group, Simon Fraser University.
+0.32, 18-Sep-2017. Copyright (C) 2016-2017 Research Computing Group, Simon Fraser University.
 
 
 ## Why Active Directory and ampush?
 
-  - It's 2016. Get rid of NIS. Active Directory is inevitable in heterogeneous environments.
+  - It's ${YEAR}. Get rid of NIS. Active Directory is inevitable in heterogeneous environments.
   - You probably already have the AD schema you need to serve automounts.
   - Use classic flat file automount tables instead of ADSI Edit's 13-click, 4-stage Wizard(tm).
 
@@ -58,6 +58,7 @@ ampush is built for environments where FreeIPA is not present. Assuming you coul
 
 ## Version History
 
+ - v0.32, 18-Sep-2017: Add support for pushing to multiple containers with optional munging.
  - v0.31, 14-Sep-2017: Perform additional sync if conflict resolution has occurred.
  - v0.3, 14-Sep-2017: Seek and destroy conflict (cn=\*\\0aCNF:\*) objects.
  - v0.21, 07-Apr-2016: Fix function call. Clarify error message and requirements in README. Thanks, Ben!

@@ -1,5 +1,5 @@
 import re
-from amlib import conf, log, ad_op, utils, cnx
+from amlib import conf, log, ad_op, utils, cnx, hook, argp
 from amlib import file_map as fm
 from amlib import ad_map as adm
 import ldap.modlist as modlist
@@ -27,11 +27,15 @@ def do(maps=None, dry_run=True):
     ''' Let's DO THIS THING '''
     preflight()
 
-    # argparse shoves "None" in the list which is not super helpful
-    maps = filter(None, maps)
+    # argparse shoves "None" in the list which is not super helpful.
+    # filter it out
+    if isinstance(maps, list):
+        maps = filter(None, maps)
+    else:
+        maps = []
 
     if len(maps) == 0:
-        log.m.debug('Default --sync action: sync all maps')
+        log.m.debug('Default action: sync all maps')
         all_parent_maps(dry_run=dry_run)
         all_map_contents(dry_run=dry_run)
     else:  # >=1 maps passed to --sync
@@ -123,13 +127,17 @@ Pass 2: Keys that exist in flat file maps but not in AD: create in AD.
 Pass 3: Keys that exist in both places but whose values differ:
         delete from AD, create in AD with updated info.
     '''
-    # log.m.debug('sync.map_contents:'+map_name)
+    # log.m.debug('sync.map_contents:' + map_name)
 
     conflicts_found = None
     if ad_op.conflict_catcher(map_name=map_name) is True:
         conflicts_found = True
 
+    # Read flat file map, then run modification hooks (if any)
+    # before anything is pushed into Active Directory.
     ff_map = fm.parse(map_name)
+    ff_map = hook.munge(map_name=map_name, map_meat=ff_map)
+
     ad_map = adm.parse(map_name)
 
     # Pass 1

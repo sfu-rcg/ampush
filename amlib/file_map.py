@@ -132,7 +132,7 @@ Ingest a list of automount map entries. Return a nice dict like this:
     d_map = {}
 
     log_msg = 'Reading {0}/{1}'.format(conf.c['flat_file_map_dir'],
-                                    map_name)
+                                       map_name)
     log.m.debug(log_msg)
 
     for l in map_lines:

@@ -10,10 +10,15 @@ Part of ampush. https://github.com/sfu-rcg/ampush
 Copyright (C) 2016-2017 Research Computing Group, Simon Fraser University.
 '''
 
-def wait_for_replication(seconds=7):
-    # cheap way to avoid duplicates ("CNF:*" objects)
-    log.m.debug('Waiting {0} seconds for replication to complete'.format(seconds))
+
+def wait_for_replication(seconds=10):
+    # cheap way to avoid duplicates (CNF:* objects)
     from time import sleep
+
+    if conf.c['replication_wait_time']:
+        seconds = float(conf.c['replication_wait_time'])
+
+    log.m.debug('wait_for_replication: {0}s'.format(seconds))
     sleep(seconds)
     return
 

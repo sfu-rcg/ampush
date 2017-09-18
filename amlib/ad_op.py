@@ -9,7 +9,6 @@ Copyright (C) 2016-2017 Research Computing Group, Simon Fraser University.
 '''
 
 
-
 def get(cn=None, scope=ldap.SCOPE_SUBTREE):
     ''' Return one or more objects from Active Directory. '''
     try:
